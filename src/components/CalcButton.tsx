@@ -34,7 +34,7 @@ export default function CalcButton({
       case "clear":
         return "bg-red-500 p-3 rounded hover:bg-red-600 text-white";
       default:
-        return "no-class";
+        return "";
     }
   }
 
@@ -47,7 +47,7 @@ export default function CalcButton({
       case "2xh":
         return "row-span-2";
       default:
-        return "no-class";
+        return "";
     }
   }
 

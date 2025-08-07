@@ -57,9 +57,11 @@ export default function Calculator({ count }: CalcButtonProps) {
 
   return (
     <Case>
-      <Display>{count}</Display>
+      <div className="px-6 bg-white rounded-2xl">
+        <Display>{count}</Display>
+      </div>
 
-      <div className=" p-6 w-full">
+      <div className="p-6 w-full">
         <div className="grid grid-cols-4 gap-2 w-full">
           {calculatorKeyboard.map((row) => {
             return row.map((button, i) => {

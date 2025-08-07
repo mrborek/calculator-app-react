@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <section className="max-w-3xl mx-auto h-full mt-8">
-        <h1 className="text-center text-2xl">Calculator</h1>
+        <h1 className="text-center text-3xl font-medium">Calculator</h1>
         <div className="flex flex-col justify-center items-center mt-4">
           <Calculator count={count} />
         </div>

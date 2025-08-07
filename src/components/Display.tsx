@@ -9,7 +9,7 @@ export default function Display({
 }) {
   return (
     <div
-      className={`w-[280px] h-[60px] border-red-100 border flex justify-center items-center mx-auto ${className}`}
+      className={`w-full h-[60px] rounded flex justify-end items-center pr-3 text-2xl font-mono bg-black text-white ${className}`}
     >
       {children}
     </div>

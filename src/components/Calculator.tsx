@@ -11,63 +11,72 @@ interface CalcButtonProps {
 
 interface ButtonOptions {
   disabled?: boolean;
+  type?: string;
+  size?: "default" | "2x" | "2xh";
 }
 
 export default function Calculator({ count }: CalcButtonProps) {
   const calculatorKeyboard = [
     [
-      registerButton("C"),
-      registerButton("", { disabled: true }),
-      registerButton("", { disabled: true }),
-      registerButton("/"),
+      registerButton("C", { type: "clear", size: "2x" }),
+      registerButton("÷", { type: "inputOperator" }),
+      registerButton("*", { type: "inputOperator" }),
     ],
     [
-      registerButton("7"),
-      registerButton("8"),
-      registerButton("9"),
-      registerButton("*"),
+      registerButton("7", { type: "inputNumber" }),
+      registerButton("8", { type: "inputNumber" }),
+      registerButton("9", { type: "inputNumber" }),
+      registerButton("-", { type: "inputOperator" }),
     ],
     [
-      registerButton("4"),
-      registerButton("5"),
-      registerButton("6"),
-      registerButton("-"),
+      registerButton("4", { type: "inputNumber" }),
+      registerButton("5", { type: "inputNumber" }),
+      registerButton("6", { type: "inputNumber" }),
+      registerButton("+", { type: "inputOperator" }),
     ],
     [
-      registerButton("1"),
-      registerButton("2"),
-      registerButton("3"),
-      registerButton("+"),
+      registerButton("1", { type: "inputNumber" }),
+      registerButton("2", { type: "inputNumber" }),
+      registerButton("3", { type: "inputNumber" }),
+      registerButton("=", { type: "inputOperator", size: "2xh" }),
     ],
     [
-      registerButton("0"),
-      registerButton("", { disabled: true }),
-      registerButton("."),
-      registerButton("="),
+      registerButton("0", { type: "inputNumber", size: "2x" }),
+      registerButton(".", { type: "inputNumber" }),
     ],
   ];
 
   function registerButton(char: string, options?: ButtonOptions) {
-    return { char, disabled: options?.disabled || false };
+    return {
+      char,
+      disabled: options?.disabled || false,
+      type: options?.type,
+      size: options?.size,
+    };
   }
 
   return (
     <Case>
-      <Display className="">{count}</Display>
+      <Display>{count}</Display>
 
-      <div
-        className="flex gap-1 mt-10 flex-wrap justify-center"
-        style={{ maxWidth: "300px" }}
-      >
-        {calculatorKeyboard.map((row) => {
-          return row.map((button, i) => {
-            return (
-              <CalcButton key={i} disabled={button.disabled} char={button.char}>
-                {button.char}
-              </CalcButton>
-            );
-          });
-        })}
+      <div className=" p-6 w-full">
+        <div className="grid grid-cols-4 gap-2 w-full">
+          {calculatorKeyboard.map((row) => {
+            return row.map((button, i) => {
+              return (
+                <CalcButton
+                  key={i}
+                  disabled={button.disabled}
+                  char={button.char}
+                  type={button.type}
+                  size={button.size}
+                >
+                  {button.char}
+                </CalcButton>
+              );
+            });
+          })}
+        </div>
       </div>
     </Case>
   );

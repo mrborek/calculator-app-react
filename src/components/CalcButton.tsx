@@ -7,18 +7,20 @@ interface CalcButtonProps {
   onClick?: () => void;
   type?: string;
   size?: string;
+  operation?: string;
 }
 
 export default function CalcButton({
   children,
   disabled,
-  char,
   type,
   size,
+  onClick,
 }: CalcButtonProps) {
   function handleClick() {
     if (disabled) return;
-    console.info("char", char);
+
+    onClick?.();
   }
 
   const btnTypeClasses = setBtnClass(type);

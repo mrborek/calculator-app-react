@@ -3,62 +3,76 @@ import type { ReactNode } from "react";
 import CalcButton from "../components/CalcButton.tsx";
 import Case from "../components/Case.tsx";
 import Display from "../components/Display.tsx";
+import type {
+  CalculatorState,
+  OperationType,
+} from "../state/calculator.state.ts";
 
 interface CalcButtonProps {
   children?: ReactNode;
-  count: number;
+  calculatorState: CalculatorState;
 }
 
 interface ButtonOptions {
   disabled?: boolean;
   type?: string;
   size?: "default" | "2x" | "2xh";
+  operation: OperationType;
 }
 
-export default function Calculator({ count }: CalcButtonProps) {
+export default function Calculator({ calculatorState }: CalcButtonProps) {
   const calculatorKeyboard = [
     [
-      registerButton("C", { type: "clear", size: "2x" }),
-      registerButton("÷", { type: "inputOperator" }),
-      registerButton("*", { type: "inputOperator" }),
+      registerButton("C", { type: "clear", size: "2x", operation: "clear" }),
+      registerButton("÷", { type: "inputOperator", operation: "divide" }),
+      registerButton("*", { type: "inputOperator", operation: "multiply" }),
     ],
     [
-      registerButton("7", { type: "inputNumber" }),
-      registerButton("8", { type: "inputNumber" }),
-      registerButton("9", { type: "inputNumber" }),
-      registerButton("-", { type: "inputOperator" }),
+      registerButton("7", { type: "inputNumber", operation: "input" }),
+      registerButton("8", { type: "inputNumber", operation: "input" }),
+      registerButton("9", { type: "inputNumber", operation: "input" }),
+      registerButton("-", { type: "inputOperator", operation: "subtract" }),
     ],
     [
-      registerButton("4", { type: "inputNumber" }),
-      registerButton("5", { type: "inputNumber" }),
-      registerButton("6", { type: "inputNumber" }),
-      registerButton("+", { type: "inputOperator" }),
+      registerButton("4", { type: "inputNumber", operation: "input" }),
+      registerButton("5", { type: "inputNumber", operation: "input" }),
+      registerButton("6", { type: "inputNumber", operation: "input" }),
+      registerButton("+", { type: "inputOperator", operation: "add" }),
     ],
     [
-      registerButton("1", { type: "inputNumber" }),
-      registerButton("2", { type: "inputNumber" }),
-      registerButton("3", { type: "inputNumber" }),
-      registerButton("=", { type: "inputOperator", size: "2xh" }),
+      registerButton("1", { type: "inputNumber", operation: "input" }),
+      registerButton("2", { type: "inputNumber", operation: "input" }),
+      registerButton("3", { type: "inputNumber", operation: "input" }),
+      registerButton("=", {
+        type: "inputOperator",
+        size: "2xh",
+        operation: "calculate",
+      }),
     ],
     [
-      registerButton("0", { type: "inputNumber", size: "2x" }),
-      registerButton(".", { type: "inputNumber" }),
+      registerButton("0", {
+        type: "inputNumber",
+        size: "2x",
+        operation: "input",
+      }),
+      registerButton(".", { type: "inputNumber", operation: "dot" }),
     ],
   ];
 
-  function registerButton(char: string, options?: ButtonOptions) {
+  function registerButton(char: string, options: ButtonOptions) {
     return {
       char,
       disabled: options?.disabled || false,
       type: options?.type,
       size: options?.size,
+      operation: options?.operation,
     };
   }
 
   return (
     <Case>
       <div className="px-6 bg-white rounded-2xl">
-        <Display>{count}</Display>
+        <Display>{calculatorState.query}</Display>
       </div>
 
       <div className="p-6 w-full">
@@ -72,6 +86,10 @@ export default function Calculator({ count }: CalcButtonProps) {
                   char={button.char}
                   type={button.type}
                   size={button.size}
+                  operation={button.operation}
+                  onClick={() => {
+                    calculatorState.setQuery(button.operation, button.char);
+                  }}
                 >
                   {button.char}
                 </CalcButton>

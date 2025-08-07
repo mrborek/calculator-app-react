@@ -4,41 +4,85 @@ import CalcButton from "../components/CalcButton.tsx";
 import Case from "../components/Case.tsx";
 import Display from "../components/Display.tsx";
 
-
 interface CalcButtonProps {
   children?: ReactNode;
-  count: number
+  count: number;
 }
 
-export default function Calculator({ count  }: CalcButtonProps) {
-    const buttons = [
-        ["C", "", "", "/"],
-        ["7", "8", "9", "*"],
-        ["4", "5", "6", "-"],
-        ["1", "2", "3", "+"],
-        ["0", "", ".", "="],
-      ];
+interface ButtonOptions {
+  disabled?: boolean;
+}
 
-  return   <Case>
-  <Display className="">{count}</Display>
+export default function Calculator({ count }: CalcButtonProps) {
+  const calculatorKeyboard = [
+    [
+      registerButton("C"),
+      registerButton("", { disabled: true }),
+      registerButton("", { disabled: true }),
+      registerButton("/"),
+    ],
+    [
+      registerButton("7"),
+      registerButton("8"),
+      registerButton("9"),
+      registerButton("*"),
+    ],
+    [
+      registerButton("4"),
+      registerButton("5"),
+      registerButton("6"),
+      registerButton("-"),
+    ],
+    [
+      registerButton("1"),
+      registerButton("2"),
+      registerButton("3"),
+      registerButton("+"),
+    ],
+    [
+      registerButton("0"),
+      registerButton("", { disabled: true }),
+      registerButton("."),
+      registerButton("="),
+    ],
+  ];
 
-  <div className="flex gap-1 mt-10 flex-wrap justify-center" style={{maxWidth: '300px'}}>
-  {buttons[0].map(n=>{
-    return <CalcButton>{n}</CalcButton>
-  })}
-  {buttons[1].map(n=>{
-    return <CalcButton>{n}</CalcButton>
-  })}
-  {buttons[2].map(n=>{
-    return <CalcButton>{n}</CalcButton>
-  })}
-  {buttons[3].map(n=>{
-    return <CalcButton>{n}</CalcButton>
-  })}
-    {buttons[4].map(n=>{
-    return <CalcButton>{n}</CalcButton>
-  })}
-  </div>
-  
-</Case>
+  function registerButton(char: string, options?: ButtonOptions) {
+    return { char, disabled: options?.disabled || false };
+  }
+
+  return (
+    <Case>
+      <Display className="">{count}</Display>
+
+      <div
+        className="flex gap-1 mt-10 flex-wrap justify-center"
+        style={{ maxWidth: "300px" }}
+      >
+        {calculatorKeyboard[0].map((button, i) => {
+          return (
+            <CalcButton key={i} disabled={button.disabled}>
+              {button.char}
+            </CalcButton>
+          );
+        })}
+        {calculatorKeyboard[1].map((button, i) => {
+          return <CalcButton key={i}>{button.char}</CalcButton>;
+        })}
+        {calculatorKeyboard[2].map((button, i) => {
+          return <CalcButton key={i}>{button.char}</CalcButton>;
+        })}
+        {calculatorKeyboard[3].map((button, i) => {
+          return <CalcButton key={i}>{button.char}</CalcButton>;
+        })}
+        {calculatorKeyboard[4].map((button, i) => {
+          return (
+            <CalcButton key={i} disabled={button.disabled}>
+              {button.char}
+            </CalcButton>
+          );
+        })}
+      </div>
+    </Case>
+  );
 }

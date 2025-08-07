@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
-import CalculatorLib from "@mrborek/calculator-lib";
+// import CalculatorLib from "@mrborek/calculator-lib";
 import Calculator from "./components/Calculator.tsx";
 
 // const calculator = new CalculatorLib();

@@ -59,28 +59,14 @@ export default function Calculator({ count }: CalcButtonProps) {
         className="flex gap-1 mt-10 flex-wrap justify-center"
         style={{ maxWidth: "300px" }}
       >
-        {calculatorKeyboard[0].map((button, i) => {
-          return (
-            <CalcButton key={i} disabled={button.disabled}>
-              {button.char}
-            </CalcButton>
-          );
-        })}
-        {calculatorKeyboard[1].map((button, i) => {
-          return <CalcButton key={i}>{button.char}</CalcButton>;
-        })}
-        {calculatorKeyboard[2].map((button, i) => {
-          return <CalcButton key={i}>{button.char}</CalcButton>;
-        })}
-        {calculatorKeyboard[3].map((button, i) => {
-          return <CalcButton key={i}>{button.char}</CalcButton>;
-        })}
-        {calculatorKeyboard[4].map((button, i) => {
-          return (
-            <CalcButton key={i} disabled={button.disabled}>
-              {button.char}
-            </CalcButton>
-          );
+        {calculatorKeyboard.map((row) => {
+          return row.map((button, i) => {
+            return (
+              <CalcButton key={i} disabled={button.disabled} char={button.char}>
+                {button.char}
+              </CalcButton>
+            );
+          });
         })}
       </div>
     </Case>

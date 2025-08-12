@@ -13,11 +13,11 @@ function hasArrayChanged<T>(currentArray: T[], previousArray: T[]): boolean {
 }
 
 /**
- * useWatch - works like Vue 3's watch functionality
+ * watch - works like Vue 3's watch functionality
  * @param watchedValue - The value to watch for changes
  * @param changeCallback - Callback function called when value changes: (newValue, oldValue) => void
  */
-export function useWatch<T>(
+export function watch<T>(
   watchedValue: T,
   changeCallback: (newValue: T, oldValue: T) => void,
 ): void {

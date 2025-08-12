@@ -7,6 +7,7 @@ import type {
   CalculatorState,
   OperationType,
 } from "../state/calculator.state.ts";
+import { watch } from "../hooks/useWatch.ts";
 
 interface CalcButtonProps {
   children?: ReactNode;
@@ -21,6 +22,11 @@ interface ButtonOptions {
 }
 
 export default function Calculator({ calculatorState }: CalcButtonProps) {
+  watch(calculatorState.query, (newQuery) => {
+    console.info("newQuery", newQuery);
+    console.info("calculatorState.partials", calculatorState.partials);
+  });
+
   const calculatorKeyboard = [
     [
       registerButton("C", { type: "clear", size: "2x", operation: "clear" }),
@@ -88,6 +94,7 @@ export default function Calculator({ calculatorState }: CalcButtonProps) {
                   size={button.size}
                   operation={button.operation}
                   onClick={() => {
+                    console.info(button);
                     calculatorState.setQuery(button.operation, button.char);
                   }}
                 >

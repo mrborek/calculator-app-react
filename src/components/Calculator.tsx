@@ -24,7 +24,10 @@ interface ButtonOptions {
 export default function Calculator({ calculatorState }: CalcButtonProps) {
   watch(calculatorState.query, (newQuery) => {
     console.info("newQuery", newQuery);
-    console.info("calculatorState.partials", calculatorState.partials);
+    console.info(
+      "calculatorState.operationHistory",
+      calculatorState.operationHistory,
+    );
   });
 
   const calculatorKeyboard = [
